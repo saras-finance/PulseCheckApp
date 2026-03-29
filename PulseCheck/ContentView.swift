@@ -1,24 +1,23 @@
-//
-//  ContentView.swift
-//  PulseCheck
-//
-//  Created by Chandra Prakash on 29/03/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+    @EnvironmentObject var store: GroupStore
+    @State private var selectedTab = 0
 
-#Preview {
-    ContentView()
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            HomeView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "waveform.path.ecg")
+                }
+                .tag(0)
+
+            ConfigureView()
+                .tabItem {
+                    Label("Configure", systemImage: "slider.horizontal.3")
+                }
+                .tag(1)
+        }
+        .tint(Color("AccentColor"))
+    }
 }
