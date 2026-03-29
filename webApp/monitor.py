@@ -168,9 +168,10 @@ class Monitor:
             results=self.results,
             last_updated=datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")
         )
-        with open("index.html", "w") as f:
+        # Move index.html to the project root
+        with open("../index.html", "w") as f:
             f.write(html)
-        print("📝 Status page generated: index.html")
+        print("📝 Status page generated: ../index.html")
 
     def run(self):
         groups = self.endpoints_config.get("groups", [])
