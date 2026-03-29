@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseCheck Status</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #fcfcfc; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; color: #1a1a1a; }
+        .status-header { padding: 4rem 0; background: #fff; border-bottom: 1px solid #f0f0f0; margin-bottom: 3rem; }
+        .group-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #4a4a4a; letter-spacing: -0.01em; }
+        .card { border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-bottom: 2rem; background: #fff; }
+        .endpoint-name { font-size: 1.05rem; font-weight: 600; }
+        .uptime-bar { display: flex; gap: 2px; height: 34px; margin-top: 1rem; }
+        .uptime-segment { flex: 1; border-radius: 2px; min-width: 3px; }
+        .seg-up { background-color: #2da44e; }
+        .seg-down { background-color: #cf222e; }
+        .seg-none { background-color: #eaeef2; }
+        .status-badge { font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
+        .badge-up { background-color: #dafbe1; color: #1a7f37; }
+        .badge-down { background-color: #ffebe9; color: #cf222e; }
+        .stats-label { font-size: 0.75rem; color: #6e7781; text-transform: uppercase; font-weight: 600; }
+        .stats-value { font-size: 0.9rem; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="status-header text-center">
+        <div class="container">
+            <h1 class="display-6 fw-bold mb-2">System Status</h1>
+            <p class="text-muted">Last Updated: 2026-03-29 15:57:30 UTC</p>
+        </div>
+    </div>
+
+    <div class="container mb-5" style="max-width: 800px;">
+        
+        <div class="mb-5">
+            <h4 class="group-title">Production Services</h4>
+            
+            <div class="card p-4">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <div class="endpoint-name">Primary API</div>
+                        <div class="small text-muted">https://api-prod.sarasfinance.com/health</div>
+                    </div>
+                    <div>
+                        <span class="status-badge badge-down">
+                            Outage
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="uptime-bar">
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                </div>
+                
+                <div class="d-flex justify-content-between mt-2">
+                    <span class="stats-label">90 days ago</span>
+                    <span class="stats-label">Today</span>
+                </div>
+
+                <div class="row mt-4 pt-3 border-top">
+                    <div class="col-4">
+                        <div class="stats-label">Uptime</div>
+                        <div class="stats-value">99.9%</div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="stats-label">Response Time</div>
+                        <div class="stats-value">0ms</div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="stats-label">Status Code</div>
+                        <div class="stats-value text-danger">ERR</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card p-4">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <div class="endpoint-name">Web Portal</div>
+                        <div class="small text-muted">https://sarasfinance.com</div>
+                    </div>
+                    <div>
+                        <span class="status-badge badge-up">
+                            Operational
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="uptime-bar">
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                </div>
+                
+                <div class="d-flex justify-content-between mt-2">
+                    <span class="stats-label">90 days ago</span>
+                    <span class="stats-label">Today</span>
+                </div>
+
+                <div class="row mt-4 pt-3 border-top">
+                    <div class="col-4">
+                        <div class="stats-label">Uptime</div>
+                        <div class="stats-value">99.9%</div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="stats-label">Response Time</div>
+                        <div class="stats-value">164.0ms</div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="stats-label">Status Code</div>
+                        <div class="stats-value text-success">200</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="mb-5">
+            <h4 class="group-title">Development Services</h4>
+            
+            <div class="card p-4">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <div class="endpoint-name">Primary API</div>
+                        <div class="small text-muted">https://api-dev.sarasfinance.com/health</div>
+                    </div>
+                    <div>
+                        <span class="status-badge badge-down">
+                            Outage
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="uptime-bar">
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                        
+                        <div class="uptime-segment seg-up"></div>
+                    
+                </div>
+                
+                <div class="d-flex justify-content-between mt-2">
+                    <span class="stats-label">90 days ago</span>
+                    <span class="stats-label">Today</span>
+                </div>
+
+                <div class="row mt-4 pt-3 border-top">
+                    <div class="col-4">
+                        <div class="stats-label">Uptime</div>
+                        <div class="stats-value">99.9%</div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="stats-label">Response Time</div>
+                        <div class="stats-value">0ms</div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="stats-label">Status Code</div>
+                        <div class="stats-value text-danger">ERR</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+        <footer class="text-center mt-5 py-4 text-muted small">
+            Built by Saras AI Team | © 2026 PulseCheck
+        </footer>
+    </div>
+</body>
+</html>
