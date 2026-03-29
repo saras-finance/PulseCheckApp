@@ -105,11 +105,17 @@ class Monitor:
         except Exception as e:
             result["error"] = str(e)
             self.notify(name, group_name, None, str(e), endpoint.get("critical", False))
-        
+        # Record to history: t=time, s=success, r=response_time, c=code
         if url not in self.history: self.history[url] = []
-        self.history[url].append({"t": time.time(), "s": result["is_up"]})
-        
-        # Calculate daily status for 90 days
+        self.history[url].append({
+            "t": time.time(), 
+            "s": result["is_up"], 
+            "r": round(result["elapsed"], 2), 
+            "c": result["status"]
+        })
+
+        # Add limited history to result for template (last 50 checks)
+        result["history_details"] = self.history[url][-50:]
         result["uptime_bars"] = self.calculate_bars(url)
         result["uptime_pct"] = self.calculate_uptime(url)
         

@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Status - Saras Finance</title>
+    <title>Saras Finance - System Status</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #fcfcfc; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; color: #1a1a1a; }
+        body { background-color: #fcfcfc; font-family: -apple-system, "Inter", "Segoe UI", sans-serif; color: #1a1a1a; }
         .status-header { padding: 4rem 0; background: #fff; border-bottom: 1px solid #f0f0f0; margin-bottom: 3rem; }
-        .group-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #4a4a4a; letter-spacing: -0.01em; }
-        .card { border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-bottom: 2rem; background: #fff; }
-        .endpoint-name { font-size: 1.05rem; font-weight: 600; }
+        .card { border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-bottom: 2rem; background: #fff; overflow: hidden; }
         .uptime-bar { display: flex; gap: 2px; height: 34px; margin-top: 1rem; }
-        .uptime-segment { flex: 1; border-radius: 2px; min-width: 3px; }
+        .uptime-segment { flex: 1; border-radius: 2px; min-width: 3px; cursor: pointer; }
         .seg-up { background-color: #2da44e; }
         .seg-down { background-color: #cf222e; }
         .seg-none { background-color: #eaeef2; }
@@ -21,39 +19,35 @@
         .badge-down { background-color: #ffebe9; color: #cf222e; }
         .stats-label { font-size: 0.75rem; color: #6e7781; text-transform: uppercase; font-weight: 600; }
         .stats-value { font-size: 0.9rem; font-weight: 600; }
-        .rss-link { color: #f26522; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .history-table { font-size: 0.85rem; margin-top: 2rem; border-top: 1px solid #f0f0f0; }
+        .history-table th { font-weight: 600; color: #6e7781; }
+        .history-btn { font-size: 0.8rem; font-weight: 600; color: #0969da; cursor: pointer; text-decoration: none; }
+        .history-btn:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="status-header text-center">
         <div class="container">
-            <img src="https://sarasfinance.com/logo.png" alt="Saras Finance" style="height: 40px; margin-bottom: 20px;" onerror="this.style.display='none'">
             <h1 class="display-6 fw-bold mb-2">Saras Finance Status</h1>
-            <p class="text-muted">Real-time health of our infrastructure</p>
-            <a href="rss.xml" class="rss-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill me-1" viewBox="0 0 16 16">
-                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 4.847a1 1 0 0 1 .643-.306 8.94 8.94 0 0 1 7.402 7.402 1 1 0 0 1-1.088 1.088 7.12 7.12 0 0 0-5.904-5.903 1 1 0 0 1-.306-.644V4.847zM3.303 1.833a1 1 0 0 1 1.013-.934 11.38 11.38 0 0 1 10.939 10.94 1 1 0 0 1-.944 1.003L12.3 12.87a1 1 0 0 1-1.032-.933 7.83 7.83 0 0 0-7.534-7.534 1 1 0 0 1-.933-1.031l.003-1.539zM3 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0z"/>
-                </svg> RSS Feed
-            </a>
+            <p class="text-muted">Last Checked: <span class="local-time" data-utc="{{ last_updated }}">{{ last_updated }}</span></p>
+            <a href="rss.xml" class="btn btn-outline-warning btn-sm fw-bold">Subscribe to RSS</a>
         </div>
     </div>
 
     <div class="container mb-5" style="max-width: 800px;">
         {% for group_name, endpoints in results.items() %}
         <div class="mb-5">
-            <h4 class="group-title">{{ group_name }}</h4>
+            <h4 class="fw-bold mb-4" style="color: #4a4a4a;">{{ group_name }}</h4>
             {% for endpoint in endpoints %}
             <div class="card p-4">
                 <div class="d-flex justify-content-between align-items-start mb-2">
                     <div>
-                        <div class="endpoint-name">{{ endpoint.name }}</div>
+                        <div class="fw-bold fs-5">{{ endpoint.name }}</div>
                         <div class="small text-muted">{{ endpoint.url }}</div>
                     </div>
-                    <div>
-                        <span class="status-badge {{ 'badge-up' if endpoint.is_up else 'badge-down' }}">
-                            {{ 'Operational' if endpoint.is_up else 'Outage' }}
-                        </span>
-                    </div>
+                    <span class="status-badge {{ 'badge-up' if endpoint.is_up else 'badge-down' }}">
+                        {{ 'Operational' if endpoint.is_up else 'Outage' }}
+                    </span>
                 </div>
 
                 <div class="uptime-bar">
@@ -62,35 +56,83 @@
                     {% endfor %}
                 </div>
                 
-                <div class="d-flex justify-content-between mt-2">
+                <div class="d-flex justify-content-between mt-2 mb-4">
                     <span class="stats-label">90 days ago</span>
                     <span class="stats-label">Today</span>
                 </div>
 
-                <div class="row mt-4 pt-3 border-top">
+                <div class="row pt-3 border-top">
                     <div class="col-4">
                         <div class="stats-label">Uptime</div>
                         <div class="stats-value text-{{ 'success' if endpoint.uptime_pct > 99 else 'warning' }}">{{ endpoint.uptime_pct|round(2) }}%</div>
                     </div>
                     <div class="col-4 text-center">
-                        <div class="stats-label">Response</div>
+                        <div class="stats-label">Avg. Response</div>
                         <div class="stats-value">{{ endpoint.elapsed|round(0) }}ms</div>
                     </div>
                     <div class="col-4 text-end">
-                        <div class="stats-label">Last Status</div>
-                        <div class="stats-value text-{{ 'success' if endpoint.is_up else 'danger' }}">{{ endpoint.status or 'Error' }}</div>
+                        <a class="history-btn" data-bs-toggle="collapse" href="#history-{{ loop.index0 }}-{{ loop.parentloop.index0 }}">View Details</a>
+                    </div>
+                </div>
+
+                <div class="collapse" id="history-{{ loop.index0 }}-{{ loop.parentloop.index0 }}">
+                    <div class="history-table pt-3">
+                        <table class="table table-sm table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Code</th>
+                                    <th>Response</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for check in endpoint.history_details|reverse %}
+                                <tr>
+                                    <td class="local-time" data-utc-ts="{{ check.t }}"></td>
+                                    <td>
+                                        <span class="badge {{ 'bg-success' if check.s else 'bg-danger' }}" style="font-size: 0.65rem;">
+                                            {{ 'UP' if check.s else 'DOWN' }}
+                                        </span>
+                                    </td>
+                                    <td class="text-{{ 'success' if check.s else 'danger' }} fw-bold">{{ check.c or 'ERR' }}</td>
+                                    <td class="text-muted">{{ check.r|round(0) }}ms</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
         {% endfor %}
-
-        <footer class="text-center mt-5 py-4 text-muted small border-top">
-            <div class="mb-2 fw-bold">Saras Finance PulseCheck</div>
-            <div class="mb-1">Last Checked: {{ last_updated }}</div>
-            <div>&copy; 2026 Saras Finance. All rights reserved.</div>
-        </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function formatTime() {
+            document.querySelectorAll('.local-time').forEach(el => {
+                let date;
+                if (el.dataset.utc) {
+                    // Static UTC string from Python: "2026-03-29 16:20:33 UTC"
+                    date = new Date(el.dataset.utc.replace(' UTC', 'Z').replace(' ', 'T'));
+                } else if (el.dataset.utcTs) {
+                    // Unix timestamp
+                    date = new Date(el.dataset.utcTs * 1000);
+                }
+                
+                if (date && !isNaN(date)) {
+                    const options = { 
+                        year: 'numeric', month: 'short', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit',
+                        hour12: true
+                    };
+                    el.innerText = date.toLocaleString(undefined, options);
+                }
+            });
+        }
+        formatTime();
+    </script>
 </body>
 </html>
