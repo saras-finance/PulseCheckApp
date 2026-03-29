@@ -36,6 +36,7 @@
 
     <div class="container mb-5" style="max-width: 800px;">
         {% for group_name, endpoints in results.items() %}
+        {% set group_loop = loop %}
         <div class="mb-5">
             <h4 class="fw-bold mb-4" style="color: #4a4a4a;">{{ group_name }}</h4>
             {% for endpoint in endpoints %}
@@ -71,11 +72,11 @@
                         <div class="stats-value">{{ endpoint.elapsed|round(0) }}ms</div>
                     </div>
                     <div class="col-4 text-end">
-                        <a class="history-btn" data-bs-toggle="collapse" href="#history-{{ loop.index0 }}-{{ loop.parentloop.index0 }}">View Details</a>
+                        <a class="history-btn" data-bs-toggle="collapse" href="#history-{{ loop.index0 }}-{{ group_loop.index0 }}">View Details</a>
                     </div>
                 </div>
 
-                <div class="collapse" id="history-{{ loop.index0 }}-{{ loop.parentloop.index0 }}">
+                <div class="collapse" id="history-{{ loop.index0 }}-{{ group_loop.index0 }}">
                     <div class="history-table pt-3">
                         <table class="table table-sm table-borderless">
                             <thead>
@@ -96,7 +97,7 @@
                                         </span>
                                     </td>
                                     <td class="text-{{ 'success' if check.s else 'danger' }} fw-bold">{{ check.c or 'ERR' }}</td>
-                                    <td class="text-muted">{{ check.r|round(0) }}ms</td>
+                                    <td class="text-muted">{{ (check.r or 0)|round(0) }}ms</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
