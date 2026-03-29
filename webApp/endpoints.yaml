@@ -1,0 +1,19 @@
+# Monitoring Inventory
+history_days: 90
+
+groups:
+  - name: "Production Services"
+    endpoints:
+      - name: "Primary API"
+        url: "https://api-prod.sarasfinance.com/health"
+        critical: true
+      - name: "Web Portal"
+        url: "https://sarasfinance.com"
+        critical: false
+
+  - name: "Development Services"
+    endpoints:
+      - name: "Primary API"
+        url: "https://api-dev.sarasfinance.com/health"
+        critical: true
+

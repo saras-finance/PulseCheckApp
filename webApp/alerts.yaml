@@ -1,0 +1,35 @@
+# Alerting Providers Configuration
+# All sensitive values must be provided via Environment Variables (GitHub Secrets)
+
+providers:
+  pushover:
+    enabled: true
+    user_key_env: "PUSHOVER_USER_KEY"
+    token_env: "PUSHOVER_TOKEN"
+
+  sendgrid:
+    enabled: true
+    api_key_env: "SENDGRID_API_KEY"
+    from_email: "alerts@sarasfinance.com"
+    to_email: "ops@sarasfinance.com"
+
+  webhook:
+    enabled: true
+    url_env: "ALERT_WEBHOOK_URL"
+    method: "POST"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer ${ALERT_WEBHOOK_BEARER_TOKEN}"
+    payload_template:
+      service: "{name}"
+      group: "{group}"
+      status: "{status}"
+      error: "{error}"
+      timestamp: "{timestamp}"
+
+  smtp:
+    enabled: false # Legacy fallback
+    server: "smtp.sendgrid.net"
+    port: 587
+    user_env: "SMTP_USER"
+    pass_env: "SMTP_PASSWORD"

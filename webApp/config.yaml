@@ -1,0 +1,35 @@
+# PulseCheck Web Configuration
+
+retention_days: 2
+
+# Global Alert Settings (can be overridden at endpoint level)
+alerts:
+  pushover:
+    enabled: true
+    user_key_env: "PUSHOVER_USER_KEY"
+    token_env: "PUSHOVER_TOKEN"
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    sender_email: "monitor@example.com"
+    receiver_email: "admin@example.com"
+    password_env: "EMAIL_PASSWORD"
+
+groups:
+  - name: "Production Services"
+    endpoints:
+      - name: "Primary API"
+        url: "https://api.sarasfinance.com/health"
+        critical: true
+        timeout: 10
+      - name: "Web Portal"
+        url: "https://sarasfinance.com"
+        critical: false
+        timeout: 15
+
+  - name: "Internal Tools"
+    endpoints:
+      - name: "Metrics Dashboard"
+        url: "https://stats.sarasfinance.com"
+        critical: false
