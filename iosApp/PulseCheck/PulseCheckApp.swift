@@ -4,11 +4,19 @@ import BackgroundTasks
 
 @main
 struct PulseCheckApp: App {
-    @StateObject private var store = GroupStore()
-    @StateObject private var healthEngine = HealthCheckEngine()
+    @Environment(\.scenePhase) private var scenePhase
+    @StateObject private var store: GroupStore
+    @StateObject private var healthEngine: HealthCheckEngine
     private let notificationDelegate = NotificationDelegate()
 
     init() {
+        let sharedStore = GroupStore()
+        let sharedEngine = HealthCheckEngine()
+        sharedEngine.store = sharedStore
+        
+        _store = StateObject(wrappedValue: sharedStore)
+        _healthEngine = StateObject(wrappedValue: sharedEngine)
+        
         let center = UNUserNotificationCenter.current()
         center.delegate = notificationDelegate
         
@@ -29,6 +37,8 @@ struct PulseCheckApp: App {
             }
         }
         registerBackgroundTasks()
+        scheduleBackgroundRefresh()
+        scheduleBackgroundProcessing()
     }
 
     var body: some Scene {
@@ -37,15 +47,22 @@ struct PulseCheckApp: App {
                 .environmentObject(store)
                 .environmentObject(healthEngine)
                 .onAppear {
-                    healthEngine.store = store
                     healthEngine.startAll()
                 }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background {
+                scheduleBackgroundRefresh()
+            }
         }
     }
 
     private func registerBackgroundTasks() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.pulsecheck.refresh", using: nil) { task in
             handleBackgroundRefresh(task: task as! BGAppRefreshTask)
+        }
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.pulsecheck.processing", using: nil) { task in
+            handleBackgroundProcessing(task: task as! BGProcessingTask)
         }
     }
 
@@ -58,10 +75,35 @@ struct PulseCheckApp: App {
         }
     }
 
+    private func handleBackgroundProcessing(task: BGProcessingTask) {
+        scheduleBackgroundProcessing()
+        task.expirationHandler = { task.setTaskCompleted(success: false) }
+        Task {
+            await healthEngine.runAllChecksOnce()
+            task.setTaskCompleted(success: true)
+        }
+    }
+
     private func scheduleBackgroundRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: "com.pulsecheck.refresh")
         request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60)
-        try? BGTaskScheduler.shared.submit(request)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("🚨 Refresh Task Error: \(error)")
+        }
+    }
+
+    private func scheduleBackgroundProcessing() {
+        let request = BGProcessingTaskRequest(identifier: "com.pulsecheck.processing")
+        request.requiresNetworkConnectivity = true
+        request.requiresExternalPower = false
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 30 * 60)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("🚨 Processing Task Error: \(error)")
+        }
     }
 }
 

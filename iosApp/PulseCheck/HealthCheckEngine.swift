@@ -38,9 +38,13 @@ class HealthCheckEngine: ObservableObject {
 
     func runAllChecksOnce() async {
         guard let store = store else { return }
-        for group in store.groups {
-            for endpoint in group.endpoints {
-                await check(endpointId: endpoint.id, groupId: group.id)
+        await withTaskGroup(of: Void.self) { group in
+            for g in store.groups {
+                for endpoint in g.endpoints {
+                    group.addTask {
+                        await self.check(endpointId: endpoint.id, groupId: g.id)
+                    }
+                }
             }
         }
     }
@@ -50,8 +54,12 @@ class HealthCheckEngine: ObservableObject {
         guard let store = store,
               let group = store.group(for: groupId),
               let endpoint = group.endpoints.first(where: { $0.id == endpointId }),
-              let url = URL(string: endpoint.url) else { return }
+              let url = URL(string: endpoint.url) else { 
+            print("🚨 Check aborted: Store, group, or endpoint missing.")
+            return 
+        }
 
+        print("🔍 Checking \(endpoint.name) at \(endpoint.url)...")
         let start = Date()
         var record = HealthRecord(timestamp: start, status: .pending)
 
@@ -66,12 +74,16 @@ class HealthCheckEngine: ObservableObject {
             record.statusCode = code
             record.responseTimeMs = elapsed
 
+            print("✅ \(endpoint.name) finished: \(record.status.label) (Code: \(code))")
             if !isUp {
+                print("🔔 Sending DOWN notification for \(endpoint.name)")
                 sendNotification(endpoint: endpoint, group: group, code: code, error: nil)
             }
         } catch {
             record.status = .down
             record.error = error.localizedDescription
+            print("❌ \(endpoint.name) error: \(error.localizedDescription)")
+            print("🔔 Sending ERROR notification for \(endpoint.name)")
             sendNotification(endpoint: endpoint, group: group, code: nil, error: error.localizedDescription)
         }
 
