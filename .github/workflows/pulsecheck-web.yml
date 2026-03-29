@@ -3,6 +3,9 @@ name: PulseCheck Web Monitor
 on:
   schedule:
     - cron: '*/5 * * * *'  # Every 5 minutes
+  push:
+    branches:
+      - main              # Run on pushes to main
   workflow_dispatch:      # Manual trigger
 
 jobs:
@@ -43,7 +46,7 @@ jobs:
         git config --global user.email "cprakashagr@gmail.com"
         # Remove legacy file if it exists
         git rm --ignore-unmatch webApp/index.html
-        # Add root index and history
-        git add index.html webApp/history.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update status and history [skip ci]" && git push)
+        # Add root index, rss, and history
+        git add index.html rss.xml webApp/history.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update status, rss and history [skip ci]" && git push)
 
