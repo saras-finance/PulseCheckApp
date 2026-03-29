@@ -157,13 +157,63 @@ class Monitor:
         fg.title("Saras Finance - PulseCheck Status")
         fg.link(href="https://saras-finance.github.io/PulseCheckApp/", rel="alternate")
         fg.description("Real-time health status for Saras Finance services")
-        for group, eps in self.results.items():
-            for ep in eps:
-                if not ep["is_up"]:
-                    fe = fg.add_entry()
-                    fe.id(f"{ep['url']}-{time.time()}")
-                    fe.title(f"OUTAGE: {ep['name']} is DOWN")
-                    fe.content(f"Service {ep['name']} in {group} reported status {ep['status'] or 'Error'}")
+        
+        # Build a lookup for metadata from endpoints_config since it's always complete
+        meta_lookup = {}
+        for group in self.endpoints_config.get("groups", []):
+            g_name = group.get("name")
+            for ep in group.get("endpoints", []):
+                meta_lookup[ep["url"]] = {"name": ep["name"], "group": g_name}
+
+        events = []
+        for url, hist in self.history.items():
+            if len(hist) < 2: continue
+            meta = meta_lookup.get(url)
+            if not meta: continue
+
+            # Detect state changes in history
+            for i in range(1, len(hist)):
+                prev, curr = hist[i-1], hist[i]
+                
+                # Transition: UP -> DOWN
+                if prev["s"] and not curr["s"]:
+                    events.append({
+                        "id": f"down-{url}-{curr['t']}",
+                        "title": f"🔴 OUTAGE: {meta['name']} is DOWN",
+                        "content": f"Service {meta['name']} ({meta['group']}) went down. Status: {curr.get('c') or 'Error'}",
+                        "time": curr["t"]
+                    })
+                # Transition: DOWN -> UP
+                elif not prev["s"] and curr["s"]:
+                    duration = ""
+                    if "t" in prev:
+                        mins = int((curr["t"] - prev["t"]) / 60)
+                        duration = f" after ~{mins} minutes" if mins > 0 else ""
+                    
+                    events.append({
+                        "id": f"up-{url}-{curr['t']}",
+                        "title": f"🟢 RESTORED: {meta['name']} is UP",
+                        "content": f"Service {meta['name']} ({meta['group']}) has been restored{duration}.",
+                        "time": curr["t"]
+                    })
+
+        # Sort events by time descending and take last 50
+        events.sort(key=lambda x: x["time"], reverse=True)
+        
+        if not events:
+            fe = fg.add_entry()
+            fe.id("all-systems-operational")
+            fe.title("✅ All Systems Operational")
+            fe.content("All services are currently reporting normal status.")
+            fe.pubDate(datetime.now().astimezone())
+        else:
+            for event in events[:50]:
+                fe = fg.add_entry()
+                fe.id(event["id"])
+                fe.title(event["title"])
+                fe.content(event["content"])
+                fe.pubDate(datetime.fromtimestamp(event["time"]).astimezone())
+
         fg.rss_file("../rss.xml")
 
     def run(self):
