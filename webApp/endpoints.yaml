@@ -5,7 +5,7 @@ groups:
   - name: "Production Services"
     endpoints:
       - name: "Primary API"
-        url: "https://api-prod.sarasfinance.com/health"
+        url: "https://ind-prod.sarasfinance.com/health"
         critical: true
       - name: "Web Portal"
         url: "https://sarasfinance.com"
@@ -14,6 +14,6 @@ groups:
   - name: "Development Services"
     endpoints:
       - name: "Primary API"
-        url: "https://api-dev.sarasfinance.com/health"
+        url: "https://ind-dev.sarasfinance.com/health"
         critical: true
 

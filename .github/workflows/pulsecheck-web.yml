@@ -41,6 +41,9 @@ jobs:
       run: |
         git config --global user.name "Chandra Prakash"
         git config --global user.email "cprakashagr@gmail.com"
-        git add webApp/index.html webApp/history.json
+        # Remove legacy file if it exists
+        git rm --ignore-unmatch webApp/index.html
+        # Add root index and history
+        git add index.html webApp/history.json
         git diff --quiet && git diff --staged --quiet || (git commit -m "Update status and history [skip ci]" && git push)
 
